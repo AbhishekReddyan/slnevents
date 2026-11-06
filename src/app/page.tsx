@@ -34,7 +34,7 @@ export default async function Landing({ searchParams }: { searchParams: Promise<
       <Backdrop />
       <SiteHeader business={business} showStaff />
       <main className="flex flex-1 items-center">
-        <div className="mx-auto grid w-full max-w-4xl gap-8 px-4 py-12 md:grid-cols-2 md:items-center">
+        <div className="mx-auto grid grid-cols-1 w-full max-w-4xl gap-8 px-4 py-12 md:grid-cols-2 md:items-center">
           <div className="space-y-3 text-white">
             <h1 className="text-4xl font-bold leading-tight">One stop for every event</h1>
             <p className="text-lg text-white/90">Tents, chairs, tables and flowers. You celebrate, we set it up.</p>

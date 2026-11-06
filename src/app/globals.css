@@ -10,6 +10,10 @@
   body {
     @apply bg-slate-50 text-slate-900 antialiased;
   }
+  /* grid children may shrink below their text width, so long lines never stretch the page */
+  .grid > * {
+    min-width: 0;
+  }
   img,
   video {
     max-width: 100%;

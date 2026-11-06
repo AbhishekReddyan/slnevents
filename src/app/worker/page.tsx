@@ -43,7 +43,7 @@ export default async function WorkerHome() {
           <span className="text-sm text-slate-500">{s.total === 0 ? 0 : Math.round((s.done / s.total) * 100)}%</span>
         </div>
         <Bar done={s.done} total={s.total} cls="bg-emerald-600" />
-        <div className="grid gap-3 sm:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
           {TASK_ORDER.map((k) => (
             <div key={k}>
               <div className="mb-1 flex justify-between text-sm"><span>{TITLE[k]}</span><span className="font-semibold">{s[k].done} / {s[k].total}</span></div>
@@ -112,7 +112,7 @@ function Section({ title, tone = "", children }: { title: string; tone?: string;
   return (
     <section>
       <h2 className={`mb-2 font-semibold ${tone}`}>{title}</h2>
-      <div className="grid gap-3 sm:grid-cols-2">{children}</div>
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">{children}</div>
     </section>
   );
 }

@@ -28,7 +28,7 @@ export default async function InventoryPage() {
 
       {items.length === 0 && <p className="card text-slate-600">No items yet. Add your first item.</p>}
 
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {items.map((it) => {
           const price = one(it.item_prices)?.price_per_day ?? 0;
           return (

@@ -66,7 +66,7 @@ export default async function OutstandingPage() {
                 )}
               </div>
               {ready ? (
-                <div className="grid gap-2 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                   <ActionForm action={resolveOutstanding} className="flex items-center gap-2">
                     <input type="hidden" name="id" value={r.id} />
                     <input type="hidden" name="action" value="received" />

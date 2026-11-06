@@ -378,7 +378,7 @@ export default async function OrderDetail({ params }: { params: Promise<{ id: st
         <ActionForm action={saveOrder} className="card space-y-4">
           <h2 className="font-semibold">Edit order</h2>
           <input type="hidden" name="id" value={order.id} />
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div><label className="label">Customer name</label><input name="customer_name" required defaultValue={order.customer_name} className="input" /></div>
             <div><label className="label">Phone</label><input name="phone" required defaultValue={order.phone} className="input" /></div>
           </div>

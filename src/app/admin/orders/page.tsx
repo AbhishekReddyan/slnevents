@@ -68,7 +68,7 @@ export default async function OrdersPage({ searchParams }: { searchParams: Promi
           </Link>
         ))}
       </div>
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {roots.map((o) => (
           <div key={o.id} className="space-y-2">
             <OrderCard order={o} short={shortMap.get(o.id) ?? 0} parentNo={null} />
