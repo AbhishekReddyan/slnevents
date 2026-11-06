@@ -2,7 +2,7 @@
 export const ORDER_SELECT =
   "id, order_no, customer_name, phone, address, notes, start_date, end_date, status, decline_reason, pickup_requested_at, track_token, parent_order_id, created_at, " +
   "order_items(id, order_id, item_id, qty, sourced_qty, delivered_qty, pickup_qty, loaded, returned_qty, damaged_qty, missing_qty, " +
-  "items(name, name_kn, photo_url), order_item_prices(price_per_day)), order_prices(discount, transport, decoration_charge), " +
+  "items(name, name_kn, photo_url), order_item_prices(price_per_day)), order_prices(discount, transport, decoration_charge, extra_amount, extra_note), " +
   "order_decorations(decoration_id, decorations(title, title_kn, photo_url))";
 
 /** Worker-side select string: same, with NO price tables (workers cannot read them anyway). */

@@ -4,6 +4,7 @@ export type BillData = {
   order_no: number; customer_name: string; phone: string; address: string; start_date: string; end_date: string; days: number;
   lines: { name: string; qty: number; price_per_day: number }[];
   decoration_count?: number; decoration_charge: number; transport: number; discount: number;
+  extra_amount?: number; extra_note?: string | null;
 };
 
 /** Itemised bill or approximate bill: items x price per day x days, discount, decoration, transport, total. */
@@ -11,7 +12,8 @@ export default function BillTable({ b, estimate = false, showHeader = true }: { 
   const rows = b.lines.map((l) => ({ ...l, amount: l.qty * Number(l.price_per_day) * b.days }));
   const itemsTotal = rows.reduce((s, r) => s + r.amount, 0);
   const discount = Number(b.discount);
-  const total = Math.max(0, itemsTotal - discount) + Number(b.transport) + Number(b.decoration_charge);
+  const extra = Number(b.extra_amount ?? 0);
+  const total = Math.max(0, itemsTotal - discount) + Number(b.transport) + Number(b.decoration_charge) + extra;
   const pricesMissing = rows.length > 0 && itemsTotal === 0;
   const decorPending = (b.decoration_count ?? 0) > 0 && Number(b.decoration_charge) === 0;
 
@@ -49,6 +51,7 @@ export default function BillTable({ b, estimate = false, showHeader = true }: { 
         {(b.decoration_count ?? 0) > 0 || Number(b.decoration_charge) > 0 ? (
           <Line label="Flower decoration" value={Number(b.decoration_charge) > 0 ? money(b.decoration_charge) : "Price confirmed by phone"} />
         ) : null}
+        {extra > 0 && <Line label={b.extra_note ? `Additional charge (${b.extra_note})` : "Additional charge"} value={money(extra)} />}
         <Line label="Transport" value={Number(b.transport) > 0 ? money(b.transport) : "Will be added later"} />
         <div className="flex justify-between border-t border-slate-300 pt-2 text-lg font-bold">
           <span>{estimate ? "Approximate total" : "Total"}</span><span>{money(total)}</span>

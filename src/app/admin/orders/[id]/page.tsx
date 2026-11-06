@@ -12,7 +12,7 @@ import { siteOrigin } from "@/lib/site";
 import { confirmedMessage, deliveryMessage, outstandingMessage, pickupMessage } from "@/lib/messages";
 import WhatsAppSend from "@/components/WhatsAppSend";
 import DeletePhotosButton from "./DeletePhotosButton";
-import { setTransport } from "./transport-actions";
+import { saveBill } from "./transport-actions";
 import { addSourcing, changeStatus, removeSourcing, saveOrder, setDecorations } from "../actions";
 
 type Short = { item_id: string; item_name: string; qty: number; sourced: number; shortage: number };
@@ -66,6 +66,8 @@ export default async function OrderDetail({ params }: { params: Promise<{ id: st
   const days = daysBetween(order.start_date, order.end_date);
   const discount = Number(one(order.order_prices)?.discount ?? 0);
   const transport = Number(one(order.order_prices)?.transport ?? 0);
+  const extraAmount = Number(one(order.order_prices)?.extra_amount ?? 0);
+  const extraNote = one(order.order_prices)?.extra_note ?? "";
   const sourcingCost = sourcing.reduce((s, r) => s + Number(r.cost), 0);
   const editable = EDITABLE.includes(order.status);
   const workerView = ["confirmed", "loaded", "delivered", "picked_up"].includes(order.status);
@@ -312,16 +314,38 @@ export default async function OrderDetail({ params }: { params: Promise<{ id: st
         </section>
       )}
 
-      {/* Transport charge (separate from editing the order) */}
+      {/* Bill: standard rates are used automatically; only these amounts change per customer */}
       {!["declined", "cancelled"].includes(order.status) && (
-        <ActionForm action={setTransport} className="card space-y-2">
-          <h2 className="font-semibold">Transport charge</h2>
+        <ActionForm action={saveBill} className="card space-y-3">
+          <h2 className="font-semibold">Bill</h2>
           <input type="hidden" name="id" value={order.id} />
-          <div className="flex gap-2">
-            <input name="transport" type="number" min={0} step="0.01" defaultValue={transport} aria-label="Transport charge" className="input" />
-            <SubmitButton className="btn-primary">Save</SubmitButton>
+          <p className="text-sm text-slate-600">
+            Items are charged at your standard rates (<Link href="/admin/costs" className="text-emerald-700 underline">Costs</Link>).
+            Add only what is special for this customer.
+          </p>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div>
+              <label className="label">Transport (₹)</label>
+              <input name="transport" type="number" min={0} step="0.01" defaultValue={transport} className="input" />
+            </div>
+            <div>
+              <label className="label">Extra amount (₹)</label>
+              <input name="extra_amount" type="number" min={0} step="0.01" defaultValue={extraAmount} className="input" />
+            </div>
+            <div className="sm:col-span-2">
+              <label className="label">Reason for the extra amount (shown on the customer&apos;s bill)</label>
+              <input name="extra_note" maxLength={200} defaultValue={extraNote} placeholder="e.g. extra labour, late pickup" className="input" />
+            </div>
+            <div>
+              <label className="label">Discount (₹)</label>
+              <input name="discount" type="number" min={0} step="0.01" defaultValue={discount} className="input" />
+            </div>
           </div>
-          <p className="text-xs text-slate-500">Enter this last, once the distance is known. The customer sees it on their bill.</p>
+          <div className="flex items-center justify-between rounded-lg bg-slate-50 px-3 py-2 text-sm">
+            <span className="text-slate-600">Current total</span>
+            <span className="text-lg font-bold">{money(orderTotal(order))}</span>
+          </div>
+          <SubmitButton className="btn-primary w-full">Save bill</SubmitButton>
         </ActionForm>
       )}
 
@@ -408,7 +432,7 @@ export default async function OrderDetail({ params }: { params: Promise<{ id: st
           </div>
           <div className="grid grid-cols-2 gap-3">
             <input type="hidden" name="transport" value={transport} />
-            <div><label className="label">Discount (₹, total)</label><input name="discount" type="number" min={0} step="0.01" defaultValue={discount} className="input" /></div>
+            <input type="hidden" name="discount" value={discount} />
           </div>
           <SubmitButton className="btn-primary w-full">Save changes</SubmitButton>
         </ActionForm>

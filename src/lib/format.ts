@@ -48,5 +48,6 @@ export function orderTotal(o: Order): number {
   const discount = Number(one(o.order_prices)?.discount ?? 0);
   const transport = Number(one(o.order_prices)?.transport ?? 0);
   const decoration = Number(one(o.order_prices)?.decoration_charge ?? 0);
-  return Math.max(0, lines - discount) + transport + decoration;
+  const extra = Number(one(o.order_prices)?.extra_amount ?? 0);
+  return Math.max(0, lines - discount) + transport + decoration + extra;
 }

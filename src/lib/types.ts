@@ -68,7 +68,7 @@ export type OrderLine = {
   order_item_prices?: { price_per_day: number } | { price_per_day: number }[] | null;
 };
 
-export type OrderPrices = { discount: number; transport: number; decoration_charge: number };
+export type OrderPrices = { discount: number; transport: number; decoration_charge: number; extra_amount?: number; extra_note?: string | null };
 export type OrderDecoration = {
   decoration_id: string;
   decorations: { title: string; title_kn: string | null; photo_url: string | null } | null;
