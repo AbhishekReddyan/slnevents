@@ -7,7 +7,8 @@ export default function Backdrop({ soft = false }: { soft?: boolean }) {
   return (
     <div aria-hidden className="fixed inset-0 -z-10 overflow-hidden bg-slate-100">
       <style>{`@keyframes bgfade{0%{opacity:0}6%{opacity:1}25%{opacity:1}31%{opacity:0}100%{opacity:0}}
-@media (prefers-reduced-motion: reduce){.bgslide{animation:none!important}.bgslide:first-child{opacity:1!important}}`}</style>
+@media (prefers-reduced-motion: reduce){.bgslide{animation:none!important}.bgslide:first-child{opacity:1!important}}
+@media (max-width: 767px){.bgslide{animation:none!important}.bgslide:not(:first-child){display:none}.bgslide:first-child{opacity:1!important}}`}</style>
       {IMAGES.map((src, i) => (
         <div
           key={src}

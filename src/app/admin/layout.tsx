@@ -12,9 +12,11 @@ export const dynamic = "force-dynamic";
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const profile = await requireRole(["owner"]);
   const sb = await createClient();
-  const { count } = await sb.from("alerts").select("id", { count: "exact", head: true }).is("read_at", null);
+  const [{ count }, logo] = await Promise.all([
+    sb.from("alerts").select("id", { count: "exact", head: true }).is("read_at", null),
+    getLogo(),
+  ]);
   const unread = count ?? 0;
-  const logo = await getLogo();
 
   const links = [
     { href: "/admin", label: "Dashboard" },

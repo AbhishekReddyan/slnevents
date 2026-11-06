@@ -24,7 +24,8 @@ export default function BillTable({ b, estimate = false, showHeader = true }: { 
           <p className="text-sm text-slate-600">{fmtDate(b.start_date)} to {fmtDate(b.end_date)} ({b.days} day{b.days > 1 ? "s" : ""})</p>
         </div>
       )}
-      <table className="w-full text-sm">
+      <div className="overflow-x-auto">
+      <table className="w-full min-w-[20rem] text-sm">
         <thead>
           <tr className="border-b border-slate-200 text-left text-xs uppercase text-slate-500">
             <th className="py-1">Item</th><th className="py-1 text-right">Qty</th><th className="py-1 text-right">Per day</th><th className="py-1 text-right">Amount</th>
@@ -41,6 +42,7 @@ export default function BillTable({ b, estimate = false, showHeader = true }: { 
           ))}
         </tbody>
       </table>
+      </div>
       <div className="space-y-1 text-sm">
         <Line label="Items" value={money(itemsTotal)} />
         {discount > 0 && <Line label="Discount" value={`− ${money(discount)}`} />}

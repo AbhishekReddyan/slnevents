@@ -1,8 +1,9 @@
+import { cache } from "react";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import type { Profile, Role } from "@/lib/types";
 
-export async function getProfile(): Promise<Profile | null> {
+export const getProfile = cache(async (): Promise<Profile | null> => {
   const sb = await createClient();
   const {
     data: { user },
@@ -10,7 +11,7 @@ export async function getProfile(): Promise<Profile | null> {
   if (!user) return null;
   const { data } = await sb.from("profiles").select("id, full_name, role").eq("id", user.id).single();
   return (data as Profile) ?? null;
-}
+});
 
 export function homeFor(role: Role) {
   return role === "owner" ? "/admin" : role === "worker" ? "/worker" : "/login?error=noaccess";
@@ -24,7 +25,7 @@ export async function requireRole(roles: Role[]): Promise<Profile> {
   return p;
 }
 
-export async function getSettings() {
+export const getSettings = cache(async () => {
   const sb = await createClient();
   const { data } = await sb.from("settings").select("*").eq("id", 1).single();
   return (data as { business_name: string; buffer_days: number; show_prices: boolean; timezone: string; photo_retention_days: number }) ?? {
@@ -34,4 +35,4 @@ export async function getSettings() {
     timezone: "Asia/Kolkata",
     photo_retention_days: 2,
   };
-}
+});

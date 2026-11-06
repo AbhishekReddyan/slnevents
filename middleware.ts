@@ -39,5 +39,6 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)"],
+  // Only staff pages need the login session; customer pages skip this extra database call.
+  matcher: ["/admin/:path*", "/worker/:path*"],
 };
