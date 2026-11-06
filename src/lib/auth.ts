@@ -5,9 +5,12 @@ import type { Profile, Role } from "@/lib/types";
 
 export const getProfile = cache(async (): Promise<Profile | null> => {
   const sb = await createClient();
+  // No network call here: the middleware already verified the login for /admin and /worker, and the database
+  // checks the token again on the profile query below (a forged cookie gets no row back).
   const {
-    data: { user },
-  } = await sb.auth.getUser();
+    data: { session },
+  } = await sb.auth.getSession();
+  const user = session?.user;
   if (!user) return null;
   const { data } = await sb.from("profiles").select("id, full_name, role").eq("id", user.id).single();
   return (data as Profile) ?? null;

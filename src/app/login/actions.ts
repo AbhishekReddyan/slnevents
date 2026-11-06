@@ -1,5 +1,6 @@
 "use server";
 
+import { after } from "next/server";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -22,12 +23,14 @@ export async function login(_: FormState, fd: FormData): Promise<FormState> {
   if (looksLikeMobile(typed)) {
     mobile = normalizeMobile(typed);
     if (!mobile) return { error: "Enter a valid 10-digit mobile number." };
-    // 5 wrong passwords = 15 minute lock, 10 = 24 hours (per mobile number)
-    const { data: gate } = await admin.rpc("staff_login_gate", { p_phone: mobile });
+    // 5 wrong passwords = 15 minute lock, 10 = 24 hours (per mobile number). Both lookups run together.
+    const [{ data: gate }, { data: prof }] = await Promise.all([
+      admin.rpc("staff_login_gate", { p_phone: mobile }),
+      admin.from("profiles").select("id").eq("phone", mobile).maybeSingle(),
+    ]);
     const g = gate as { locked: boolean; minutes: number } | null;
     if (g?.locked) return { error: `Too many wrong attempts. Try again in ${g.minutes} minute(s).` };
 
-    const { data: prof } = await admin.from("profiles").select("id").eq("phone", mobile).maybeSingle();
     const { data: u } = prof ? await admin.auth.admin.getUserById(prof.id) : { data: null };
     if (!u?.user?.email) {
       await admin.rpc("staff_login_result", { p_phone: mobile, p_ok: false });
@@ -42,7 +45,7 @@ export async function login(_: FormState, fd: FormData): Promise<FormState> {
     if (mobile) await admin.rpc("staff_login_result", { p_phone: mobile, p_ok: false });
     return { error: "Wrong login or password." };
   }
-  if (mobile) await admin.rpc("staff_login_result", { p_phone: mobile, p_ok: true });
+  if (mobile) after(async () => { await admin.rpc("staff_login_result", { p_phone: mobile!, p_ok: true }); }); // not needed to show the next page
 
   const { data: profile } = await sb.from("profiles").select("role").eq("id", data.user.id).single();
   const role = (profile?.role ?? "none") as Role;
