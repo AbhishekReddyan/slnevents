@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ContactMenu from "@/components/ContactMenu";
 import Logo from "@/components/Logo";
 import { getLogo } from "@/lib/branding";
 import { getCustomer } from "@/lib/customer-session";
@@ -21,6 +22,7 @@ export default async function SiteHeader({ business, showStaff = false }: { busi
               <Link href="/order?tab=decor" className="hover:text-emerald-700">Decoration</Link>
             </>
           )}
+          <ContactMenu />
         </nav>
         <div className="flex items-center gap-3 text-sm">
           {me ? (
