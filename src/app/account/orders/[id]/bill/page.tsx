@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BRAND } from "@/lib/brand";
 import { notFound, redirect } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getCustomer } from "@/lib/customer-session";
@@ -20,7 +21,7 @@ export default async function BillPage({ params }: { params: Promise<{ id: strin
     return (
       <div>
         <Backdrop soft />
-        <SiteHeader business="SLN Tent House" />
+        <SiteHeader business={BRAND} />
         <main className="mx-auto max-w-2xl space-y-3 px-4 py-6">
           <p className="card text-slate-700">The bill is available after you mark the event as completed.</p>
           <Link href={`/account/orders/${id}`} className="btn-secondary">← Back to my order</Link>
@@ -33,7 +34,7 @@ export default async function BillPage({ params }: { params: Promise<{ id: strin
   return (
     <div>
       <Backdrop soft />
-      <div className="print:hidden"><SiteHeader business="SLN Tent House" /></div>
+      <div className="print:hidden"><SiteHeader business={BRAND} /></div>
       <main className="mx-auto max-w-2xl space-y-4 px-4 py-6">
         <div className="flex items-center justify-between gap-2 print:hidden">
           <Link href={`/account/orders/${id}`} className="text-sm text-emerald-700 underline">← My order</Link>

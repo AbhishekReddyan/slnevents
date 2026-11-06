@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BRAND } from "@/lib/brand";
 import { notFound, redirect } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getCustomer } from "@/lib/customer-session";
@@ -52,7 +53,7 @@ export default async function CustomerOrder({
   return (
     <div>
       <Backdrop soft />
-      <SiteHeader business="SLN Tent House" />
+      <SiteHeader business={BRAND} />
       <main className="mx-auto max-w-2xl space-y-4 px-4 py-6">
         <Link href="/account" className="text-sm text-emerald-700 underline">← My orders</Link>
         <div className="flex items-center justify-between gap-2">

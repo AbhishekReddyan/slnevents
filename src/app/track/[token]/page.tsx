@@ -7,6 +7,7 @@ import { siteOrigin } from "@/lib/site";
 import LangSwitch from "@/components/LangSwitch";
 import Backdrop from "@/components/Backdrop";
 import Logo from "@/components/Logo";
+import { BRAND } from "@/lib/brand";
 import { getLogo } from "@/lib/branding";
 import { requestPickup } from "../actions";
 
@@ -43,7 +44,7 @@ export default async function TrackPage({
   const origin = await siteOrigin();
   const url = `${origin}/track/${token}`;
   const summary =
-    `SLN Tent House, order #${o.order_no} (${fmtDate(o.start_date)} to ${fmtDate(o.end_date)})\n` +
+    `${BRAND}, order #${o.order_no} (${fmtDate(o.start_date)} to ${fmtDate(o.end_date)})\n` +
     o.items.map((i) => `${i.qty} × ${nm(i)}`).join("\n") + `\n${url}`;
   const showedDelivered = step >= 2;
 

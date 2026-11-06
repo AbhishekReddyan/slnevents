@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { getLang } from "@/lib/i18n";
+import { BRAND } from "@/lib/brand";
 import { getLogo } from "@/lib/branding";
 
 // The logo uploaded in Settings is also used as the browser-tab icon and the
@@ -8,7 +9,7 @@ import { getLogo } from "@/lib/branding";
 export async function generateMetadata(): Promise<Metadata> {
   const logo = await getLogo();
   return {
-    title: "SLN Tent House",
+    title: BRAND,
     description: "Rent tents, chairs, tables and decorations for your function.",
     ...(logo ? { icons: { icon: logo, shortcut: logo, apple: logo } } : {}),
   };

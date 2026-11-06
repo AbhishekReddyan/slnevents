@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { BRAND } from "@/lib/brand";
 import { todayIn } from "@/lib/format";
 import { dictionaries, getLang } from "@/lib/i18n";
 import { getCustomer } from "@/lib/customer-session";
@@ -26,7 +27,7 @@ export default async function OrderPage({ searchParams }: { searchParams: Promis
   return (
     <div>
       <Backdrop soft />
-      <SiteHeader business={meta?.business_name ?? "SLN Tent House"} />
+      <SiteHeader business={meta?.business_name ?? BRAND} />
       <div className="mx-auto max-w-2xl px-4 py-6">
         <div className="mb-4 flex items-start justify-between gap-3">
           <p className="text-sm text-slate-600">{t.intro}</p>

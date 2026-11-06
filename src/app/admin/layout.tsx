@@ -5,6 +5,7 @@ import { logout } from "@/app/login/actions";
 import RealtimeRefresh from "@/components/RealtimeRefresh";
 import Backdrop from "@/components/Backdrop";
 import Logo from "@/components/Logo";
+import { BRAND } from "@/lib/brand";
 import { getLogo } from "@/lib/branding";
 
 export const dynamic = "force-dynamic";
@@ -39,7 +40,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-2">
           <span className="flex items-center gap-2 font-bold text-emerald-800">
             <Logo src={logo} size={32} />
-            SLN Tent House · Owner
+            {BRAND} · Owner
           </span>
           <form action={logout} className="flex items-center gap-3 text-sm">
             <span className="hidden text-slate-500 sm:inline">{profile.full_name}</span>

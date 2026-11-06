@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BRAND } from "@/lib/brand";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getCustomer } from "@/lib/customer-session";
@@ -21,7 +22,7 @@ export default async function Landing({ searchParams }: { searchParams: Promise<
   const next = sp.next && sp.next.startsWith("/") && !sp.next.startsWith("//") ? sp.next : "/";
   const sb = await createClient();
   const [{ data: info }, me] = await Promise.all([sb.rpc("public_info"), getCustomer()]);
-  const business = (info as { business_name: string }[] | null)?.[0]?.business_name ?? "SLN Tent House";
+  const business = (info as { business_name: string }[] | null)?.[0]?.business_name ?? BRAND;
 
   let active: Row[] = [];
   if (me) {

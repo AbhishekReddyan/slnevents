@@ -3,6 +3,7 @@ import { getSettings } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { ActionForm, SubmitButton } from "@/components/ActionForm";
 import type { FormState } from "@/lib/types";
+import { BRAND } from "@/lib/brand";
 import { getLogo } from "@/lib/branding";
 import LogoUpload from "./LogoUpload";
 
@@ -16,7 +17,7 @@ async function saveSettings(_: FormState, fd: FormData): Promise<FormState> {
   const { error } = await sb
     .from("settings")
     .update({
-      business_name: String(fd.get("business_name") ?? "").trim() || "SLN Tent House",
+      business_name: String(fd.get("business_name") ?? "").trim() || BRAND,
       buffer_days: buffer,
       show_prices: fd.get("show_prices") === "on",
       timezone: String(fd.get("timezone") ?? "").trim() || "Asia/Kolkata",

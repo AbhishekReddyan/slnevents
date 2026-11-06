@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BRAND } from "@/lib/brand";
 import { redirect } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getCustomer } from "@/lib/customer-session";
@@ -27,7 +28,7 @@ export default async function AccountPage() {
   return (
     <div>
       <Backdrop soft />
-      <SiteHeader business="SLN Tent House" />
+      <SiteHeader business={BRAND} />
       <main className="mx-auto max-w-2xl space-y-4 px-4 py-6">
         <h1 className="h1">Hi {me.name}</h1>
         <div className="flex gap-3">

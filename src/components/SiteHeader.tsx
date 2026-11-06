@@ -22,7 +22,6 @@ export default async function SiteHeader({ business, showStaff = false }: { busi
               <Link href="/order?tab=decor" className="hover:text-emerald-700">Decoration</Link>
             </>
           )}
-          <ContactMenu />
         </nav>
         <div className="flex items-center gap-3 text-sm">
           {me ? (
@@ -38,6 +37,7 @@ export default async function SiteHeader({ business, showStaff = false }: { busi
               Staff login
             </Link>
           )}
+          <ContactMenu />
         </div>
       </div>
     </header>

@@ -33,7 +33,7 @@ const en = {
     "Your request is pending approval. We will call you to confirm the items and the price. Please keep your reference number handy.",
   another: "Place another request",
   // worker
-  appName: "SLN Tent House · Deliveries",
+  appName: "SLN Tent House and Decors · Deliveries",
   decorations: "Decoration",
   logout: "Log out",
   admin: "Admin",
