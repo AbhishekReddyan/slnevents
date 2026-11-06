@@ -33,7 +33,7 @@ export default async function Landing({ searchParams }: { searchParams: Promise<
   return (
     <div className="flex min-h-screen flex-col">
       <Backdrop />
-      <SiteHeader business={business} showStaff />
+      <SiteHeader business={business} showStaff dark />
       <main className="flex flex-1 items-center">
         <div className="mx-auto grid grid-cols-1 w-full max-w-4xl gap-8 px-4 py-12 md:grid-cols-2 md:items-center">
           <div className="space-y-3 text-white">

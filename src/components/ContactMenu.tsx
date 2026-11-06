@@ -1,12 +1,12 @@
 import { CONTACTS } from "@/lib/contacts";
 
 /** "Contact" drop-down: tapping a name opens the phone's dial pad with that number ready. */
-export default function ContactMenu() {
+export default function ContactMenu({ light = false }: { light?: boolean }) {
   const people = CONTACTS.map((c) => ({ ...c, digits: c.phone.replace(/\D/g, "").slice(-10) })).filter((c) => c.digits.length === 10);
   if (people.length === 0) return null;
   return (
     <details className="group relative">
-      <summary className="cursor-pointer list-none text-sm font-semibold text-slate-700 hover:text-emerald-700 [&::-webkit-details-marker]:hidden">
+      <summary className={`cursor-pointer list-none text-sm font-semibold [&::-webkit-details-marker]:hidden ${light ? "text-white hover:text-emerald-200" : "text-slate-700 hover:text-emerald-700"}`}>
         Contact
       </summary>
       <div className="absolute right-0 z-30 mt-2 w-64 space-y-1 rounded-xl border border-slate-200 bg-white p-2 shadow-lg">
