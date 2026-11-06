@@ -130,6 +130,7 @@ function TaskCard({ task }: { task: Task }) {
           <StatusBadge status={o.status} label={STATUS_LABEL[o.status]} />
         </div>
         <p className="mt-1 text-sm font-medium text-emerald-800">{task.done ? "✓ " : ""}{TASK_LABEL[task.kind]}{task.done ? " · done" : ""}</p>
+        {o.pickup_requested && !task.done && task.kind === "pickup" && <p className="text-xs font-semibold text-emerald-700">Customer marked the event as completed</p>}
         {task.late && <p className="text-xs font-semibold text-red-600">Was due {fmtDate(task.due)}</p>}
         <p className="mt-1 text-sm text-slate-600">{o.address}</p>
       </Link>

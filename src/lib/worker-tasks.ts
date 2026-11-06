@@ -9,6 +9,7 @@ export type DashOrder = {
   start_date: string; // YYYY-MM-DD
   end_date: string;
   parent_no?: number | null;
+  pickup_requested?: boolean; // the customer already marked the event as completed
   status: "confirmed" | "loaded" | "delivered" | "picked_up" | "returned" | "closed";
 };
 
@@ -45,8 +46,10 @@ export function buildTasks(orders: DashOrder[], today: string): Task[] {
     }
 
     // Pickup: Delivered and end date is today or earlier
-    if (o.status === "delivered" && o.end_date <= today) {
-      out.push({ kind: "pickup", order: o, due: o.end_date, done: false, late: o.end_date < today });
+    if (o.status === "delivered" && (o.end_date <= today || o.pickup_requested)) {
+      // asked for early by the customer: due today, not late
+      const due = o.end_date < today ? o.end_date : today;
+      out.push({ kind: "pickup", order: o, due, done: false, late: due < today });
     } else if (AFTER_PICKUP.includes(o.status) && o.end_date === today) {
       out.push({ kind: "pickup", order: o, due: today, done: true, late: false });
     }
