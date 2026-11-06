@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6c177"/><stop offset=".55" stop-color="#f3a683"/><stop offset="1" stop-color="#7a3b4f"/></linearGradient>
+    <linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b5d3a"/><stop offset="1" stop-color="#1f3a2a"/></linearGradient>
+    <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffe9a8" stop-opacity=".9"/><stop offset="1" stop-color="#ffe9a8" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <circle cx="1250" cy="230" r="140" fill="url(#glow)"/>
+  <rect y="640" width="1600" height="260" fill="url(#gr)"/>
+  <!-- big marquee tent -->
+  <g transform="translate(800 0)">
+    <path d="M-420 640 L-420 470 Q0 150 420 470 L420 640 Z" fill="#fff4dc"/>
+    <path d="M-420 470 Q0 150 420 470" fill="none" stroke="#b3202a" stroke-width="14"/>
+    <g fill="#b3202a" opacity=".92">
+      <path d="M-420 470 Q-300 300 -200 262 L-140 640 L-420 640Z"/>
+      <path d="M-60 214 L60 214 L100 640 L-100 640Z" fill="#e9a42b"/>
+      <path d="M420 470 Q300 300 200 262 L140 640 L420 640Z"/>
+    </g>
+    <path d="M-200 262 Q0 150 200 262" fill="none" stroke="#e9a42b" stroke-width="10"/>
+    <path d="M0 150 L0 90" stroke="#e9a42b" stroke-width="8"/><circle cx="0" cy="84" r="14" fill="#e9a42b"/>
+    <rect x="-90" y="470" width="180" height="170" rx="6" fill="#2b1620"/>
+    <g fill="#ffd77a"><circle cx="-300" cy="520" r="12"/><circle cx="300" cy="520" r="12"/><circle cx="-220" cy="480" r="10"/><circle cx="220" cy="480" r="10"/></g>
+  </g>
+  <!-- small side tents -->
+  <g><path d="M120 640 L120 560 L260 480 L400 560 L400 640Z" fill="#fff4dc"/><path d="M110 566 L260 470 L410 566" fill="none" stroke="#e9a42b" stroke-width="10"/></g>
+  <g><path d="M1200 640 L1200 560 L1340 480 L1480 560 L1480 640Z" fill="#fff4dc"/><path d="M1190 566 L1340 470 L1490 566" fill="none" stroke="#e9a42b" stroke-width="10"/></g>
+  <!-- chairs and tables -->
+  <g fill="#7a1f2b"><rect x="520" y="700" width="40" height="8"/><rect x="520" y="660" width="8" height="48"/><rect x="620" y="700" width="40" height="8"/><rect x="620" y="660" width="8" height="48"/><rect x="980" y="700" width="40" height="8"/><rect x="1012" y="660" width="8" height="48"/><rect x="1080" y="700" width="40" height="8"/><rect x="1112" y="660" width="8" height="48"/></g>
+  <g fill="#fff4dc"><ellipse cx="800" cy="720" rx="90" ry="16"/></g><rect x="796" y="720" width="8" height="50" fill="#fff4dc"/>
+  <!-- flower garlands -->
+  <g fill="#ffd77a"><circle cx="0" cy="40" r="0"/></g>
+  <path d="M0 60 Q400 150 800 60 T1600 60" fill="none" stroke="#ffe9a8" stroke-width="3" stroke-dasharray="2 22" stroke-linecap="round"/>
+</svg>
